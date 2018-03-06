@@ -58,10 +58,17 @@ public abstract class Critter {
 	}
 	
 	protected final void reproduce(Critter offspring, int direction) {
+		if(offspring.energy < Params.min_reproduce_energy ){
+			return;
+		}
+
+
+		offspring.energy = (int) Math.ceil(0.5 * offspring.energy);
+
 	}
 
 	public abstract void doTimeStep();
-	public abstract boolean fight(String oponent);
+	public abstract boolean fight(String opponent);
 	
 	/**
 	 * create and initialize a Critter subclass.
@@ -174,8 +181,36 @@ public abstract class Critter {
 	public static void worldTimeStep() {
 		// Complete this method.
 	}
-	
+
+	/**
+	 * Prints the simulation model to the console
+	 */
 	public static void displayWorld() {
 		// Complete this method.
+
+		// if postion is occupied, print it's toString
+
+		System.out.print("+");
+		for(int i = 0; i< Params.world_width; i++){
+			System.out.print("-");
+		}
+		System.out.print("+");
+		System.out.println("");
+
+		for(int j =0; j < Params.world_height; j++){
+			System.out.print("|");
+			for(int k =0; k< Params.world_width; k++){
+				System.out.print(" ");
+			}
+			System.out.print("|");
+			System.out.println("");
+		}
+
+		System.out.print("+");
+		for(int i = 0; i< Params.world_width; i++){
+			System.out.print("-");
+		}
+		System.out.print("+");
+		System.out.println("");
 	}
 }
