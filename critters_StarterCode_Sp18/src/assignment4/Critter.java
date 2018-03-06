@@ -13,6 +13,10 @@ package assignment4;
  */
 
 
+import com.sun.org.apache.xpath.internal.SourceTree;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /* see the PDF for descriptions of the methods and fields in this class
@@ -25,6 +29,8 @@ public abstract class Critter {
 	private static String myPackage;
 	private	static List<Critter> population = new java.util.ArrayList<Critter>();
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
+	// this is the
+	private static List<Critter> worldSet = new java.util.ArrayList<>();
 
 	// Gets the package name.  This assumes that Critter and its subclasses are all in the same package.
 	static {
@@ -74,6 +80,31 @@ public abstract class Critter {
 	 * @throws InvalidCritterException
 	 */
 	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
+		if(!Critter.class.isAssignableFrom(critter_class_name.getClass())){
+			throw new InvalidCritterException(critter_class_name);
+		}
+		try{
+			Class<?> myCrit = Class.forName(critter_class_name);
+				Constructor<?> ConstructorCrit = myCrit.getDeclaredConstructor(String.class);
+				Object obj = ConstructorCrit.newInstance();
+				Critter newCritter = (Critter) obj;
+
+				newCritter.energy = Params.start_energy;
+				newCritter.x_coord = getRandomInt(Params.world_width-1);
+				newCritter.y_coord = getRandomInt(Params.world_height-1);
+				population.add(newCritter);
+				worldSet.add(newCritter);
+
+
+		}
+		catch (ClassNotFoundException e){
+			throw new InvalidCritterException(critter_class_name);
+		}
+
+		catch (NoSuchMethodException| InstantiationException
+				| InvocationTargetException | IllegalAccessException g){
+			g.printStackTrace();
+		}
 	}
 	
 	/**
