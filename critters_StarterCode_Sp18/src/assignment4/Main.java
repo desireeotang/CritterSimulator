@@ -73,6 +73,13 @@ public class Main {
         // System.out.println("GLHF");
         
         /* Write your code above */
+
+        while(!kb.next().equals("quit")){
+            if(kb.next().equals("show")){
+                Critter.displayWorld();
+            }
+        }
+
         System.out.flush();
 
     }
