@@ -2,15 +2,15 @@ package assignment4;
 /* CRITTERS Main.java
  * EE422C Project 4 submission by
  * Replace <...> with your actual data.
- * <Student1 Name>
- * <Student1 EID>
- * <Student1 5-digit Unique No.>
- * <Student2 Name>
- * <Student2 EID>
- * <Student2 5-digit Unique No.>
- * Slip days used: <0>
- * Fall 2016
+ * Isabelle Villamiel
+ * iv3235
+ * Desiree Tang
+ * dot227
+ *
+ *
+ * Spring 2018
  */
+
 
 import java.util.Scanner;
 import java.io.*;
@@ -78,12 +78,22 @@ public class Main {
         } catch (InvalidCritterException e) {
             e.printStackTrace();
         }
-        while(!kb.next().equals("quit")){
+
+        String input;
+        /*while(!kb.next().equals("quit")){
             if(kb.next().equals("show")){
+                Critter.displayWorld();
+            }
+        }*/
+        do{
+            input = kb.next();
+            if(input.equals("show")){
                 Critter.displayWorld();
 
             }
-        }
+
+        } while(!input.equals("quit"));
+
 
         System.out.flush();
 
