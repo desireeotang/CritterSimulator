@@ -53,7 +53,7 @@ public class A4SampleTest{
      */
 	 
 	@Test 
-	public void KillCritters(){
+	public void KillCritters() throws InvalidCritterException {
 	
 		
 		//Uncomment Following Codeblock to test 
@@ -71,7 +71,7 @@ public class A4SampleTest{
 		
 		String fileFolder = "kill_all_critter";
 		String[] inputs = {TESTSRCDIR + fileFolder + "/input.txt" ,"test"};
-		
+
 		Main.main(inputs);
 		outContent = Main.testOutputString;
 		
@@ -121,8 +121,9 @@ public class A4SampleTest{
 		
 		String fileFolder = "error_processing";
 		String[] inputs = {TESTSRCDIR + fileFolder + "/input.txt" ,"test"};
-		
+
 		Main.main(inputs);
+
 		outContent = Main.testOutputString;
 		
 		Scanner scanner = null;
@@ -162,9 +163,9 @@ public class A4SampleTest{
 		
 		String fileFolder = "empty_world";
 		String[] inputs = {TESTSRCDIR + fileFolder + "/input.txt" ,"test"};
-		
-		
+
 		Main.main(inputs);
+
 		outContent = Main.testOutputString;
 		
 		
@@ -211,8 +212,9 @@ public class A4SampleTest{
 		
 		Params.world_width = 20;
 		Params.world_height = 20;
-	
+
 		Main.main(inputs);
+
 		outContent = Main.testOutputString;
 		
 		Scanner scanner = null;

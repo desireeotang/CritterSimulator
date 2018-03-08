@@ -87,30 +87,28 @@ public abstract class Critter {
 	 * @throws InvalidCritterException
 	 */
 	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
-		if(!Critter.class.isAssignableFrom(critter_class_name.getClass())){
-			throw new InvalidCritterException(critter_class_name);
-		}
+//		if(!Critter.class.isAssignableFrom(critter_class_name.getClass())){
+//			throw new InvalidCritterException(critter_class_name);
+//		}
 		try{
 			Class<?> myCrit = Class.forName(critter_class_name);
-				Constructor<?> ConstructorCrit = myCrit.getDeclaredConstructor(String.class);
-				Object obj = ConstructorCrit.newInstance();
-				Critter newCritter = (Critter) obj;
+				//Constructor<?> ConstructorCrit = myCrit.getDeclaredConstructor(String.class);
+				Critter obj = (Critter) myCrit.newInstance();
+				//Critter newCritter = (Critter) obj;
 
-				newCritter.energy = Params.start_energy;
-				newCritter.x_coord = getRandomInt(Params.world_width-1);
-				newCritter.y_coord = getRandomInt(Params.world_height-1);
-				population.add(newCritter);
-				worldSet.add(newCritter);
-
-
+				obj.energy = Params.start_energy;
+				obj.x_coord = getRandomInt(Params.world_width-1);
+				obj.y_coord = getRandomInt(Params.world_height-1);
+				population.add(obj);
+				//worldSet.add(obj);
 		}
 		catch (ClassNotFoundException e){
 			throw new InvalidCritterException(critter_class_name);
 		}
 
-		catch (NoSuchMethodException| InstantiationException
-				| InvocationTargetException | IllegalAccessException g){
+		catch (InstantiationException | IllegalAccessException g){
 			g.printStackTrace();
+			throw new InvalidCritterException(critter_class_name);
 		}
 	}
 	
@@ -122,6 +120,9 @@ public abstract class Critter {
 	 */
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
+		for(Critter c : population){
+			result.add(c);
+		}
 	
 		return result;
 	}
@@ -206,7 +207,9 @@ public abstract class Critter {
 	 * Clear the world of all critters, dead and alive
 	 */
 	public static void clearWorld() {
-		// Complete this method.
+		population.clear();
+		babies.clear();
+		worldSet.clear();
 	}
 	
 	public static void worldTimeStep() {
