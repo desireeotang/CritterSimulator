@@ -2,15 +2,15 @@ package assignment4;
 /* CRITTERS Main.java
  * EE422C Project 4 submission by
  * Replace <...> with your actual data.
- * <Student1 Name>
- * <Student1 EID>
- * <Student1 5-digit Unique No.>
- * <Student2 Name>
- * <Student2 EID>
- * <Student2 5-digit Unique No.>
- * Slip days used: <0>
- * Fall 2016
+ * Isabelle Villamiel
+ * iv3235
+ * Desiree Tang
+ * dot227
+ *
+ *
+ * Spring 2018
  */
+
 
 import java.util.Scanner;
 import java.io.*;
@@ -41,7 +41,7 @@ public class Main {
      * @param args args can be empty.  If not empty, provide two parameters -- the first is a file name, 
      * and the second is test (for test output, where all output to be directed to a String), or nothing.
      */
-    public static void main(String[] args) { 
+    public static void main(String[] args) {
         if (args.length != 0) {
             try {
                 inputFile = args[0];
@@ -73,12 +73,27 @@ public class Main {
         // System.out.println("GLHF");
         
         /* Write your code above */
+        try {
+            Critter.makeCritter("assignment4.Craig");
+        } catch (InvalidCritterException e) {
+            e.printStackTrace();
+        }
 
-        while(!kb.next().equals("quit")){
+        String input;
+        /*while(!kb.next().equals("quit")){
             if(kb.next().equals("show")){
                 Critter.displayWorld();
             }
-        }
+        }*/
+        do{
+            input = kb.next();
+            if(input.equals("show")){
+                Critter.displayWorld();
+
+            }
+
+        } while(!input.equals("quit"));
+
 
         System.out.flush();
 

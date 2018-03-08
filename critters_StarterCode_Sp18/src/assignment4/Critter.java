@@ -2,14 +2,13 @@ package assignment4;
 /* CRITTERS Critter.java
  * EE422C Project 4 submission by
  * Replace <...> with your actual data.
- * <Student1 Name>
- * <Student1 EID>
- * <Student1 5-digit Unique No.>
- * <Student2 Name>
- * <Student2 EID>
- * <Student2 5-digit Unique No.>
- * Slip days used: <0>
- * Fall 2016
+ * Isabelle Villamiel
+ * iv3235
+ * Desiree Tang
+ * dot227
+ *
+ *
+ * Spring 2018
  */
 
 
@@ -87,30 +86,22 @@ public abstract class Critter {
 	 * @throws InvalidCritterException
 	 */
 	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
-		if(!Critter.class.isAssignableFrom(critter_class_name.getClass())){
-			throw new InvalidCritterException(critter_class_name);
-		}
 		try{
 			Class<?> myCrit = Class.forName(critter_class_name);
-				Constructor<?> ConstructorCrit = myCrit.getDeclaredConstructor(String.class);
-				Object obj = ConstructorCrit.newInstance();
-				Critter newCritter = (Critter) obj;
+				Critter obj = (Critter) myCrit.newInstance();
 
-				newCritter.energy = Params.start_energy;
-				newCritter.x_coord = getRandomInt(Params.world_width-1);
-				newCritter.y_coord = getRandomInt(Params.world_height-1);
-				population.add(newCritter);
-				worldSet.add(newCritter);
-
-
+				obj.energy = Params.start_energy;
+				obj.x_coord = getRandomInt(Params.world_width-1);
+				obj.y_coord = getRandomInt(Params.world_height-1);
+				population.add(obj);
 		}
 		catch (ClassNotFoundException e){
 			throw new InvalidCritterException(critter_class_name);
 		}
 
-		catch (NoSuchMethodException| InstantiationException
-				| InvocationTargetException | IllegalAccessException g){
+		catch (InstantiationException | IllegalAccessException g){
 			g.printStackTrace();
+			throw new InvalidCritterException(critter_class_name);
 		}
 	}
 	
@@ -122,6 +113,17 @@ public abstract class Critter {
 	 */
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
+		for(Critter c : population){
+			try{
+
+				if (Class.forName(critter_class_name).isInstance(c)) {
+					result.add(c);
+				}
+
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
 	
 		return result;
 	}
@@ -206,7 +208,9 @@ public abstract class Critter {
 	 * Clear the world of all critters, dead and alive
 	 */
 	public static void clearWorld() {
-		// Complete this method.
+		population.clear();
+		babies.clear();
+		worldSet.clear();
 	}
 	
 	public static void worldTimeStep() {
