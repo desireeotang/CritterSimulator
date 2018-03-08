@@ -78,6 +78,9 @@ public class Main {
             if(kb.next().equals("show")){
                 Critter.displayWorld();
             }
+            else if(kb.next().equals("step")){
+                kb.nextInt();
+            }
         }
 
         System.out.flush();
