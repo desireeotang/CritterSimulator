@@ -6,8 +6,6 @@ package assignment4;
  * iv3235
  * Desiree Tang
  * dot227
- *
- *
  * Spring 2018
  */
 
@@ -61,12 +59,14 @@ public abstract class Critter {
 	}
 	
 	protected final void reproduce(Critter offspring, int direction) {
-		if(offspring.energy < Params.min_reproduce_energy ){
-			return;
-		}
+	    // offspring is the critter BABY not the parent because precondition
+        // is a new critter is made before calling reproduce
+		//if(offspring.energy < Params.min_reproduce_energy ){
+		//	return;
+		//}
 
 
-		offspring.energy = (int) Math.ceil(0.5 * offspring.energy);
+		//offspring.energy = (int) Math.ceil(0.5 * offspring.energy);
 
 	}
 
