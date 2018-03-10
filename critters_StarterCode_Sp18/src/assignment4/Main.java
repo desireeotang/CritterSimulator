@@ -69,27 +69,49 @@ public class Main {
 
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
-        
-        // System.out.println("GLHF");
-        
-        /* Write your code above */
+
         try {
-            Critter.makeCritter("assignment4.Craig");
+            // FOR LOOPS FOR STAGES 1 AND 2 ONLY
+            // STAGE 3: WORLD STARTS EMPTY
+            for(int i =0; i < 25; i++) {
+                Critter.makeCritter("assignment4.Craig");
+            }
+            for(int j =0; j <100; j++){
+                Critter.makeCritter("assignment4.Algae");
+            }
         } catch (InvalidCritterException e) {
             e.printStackTrace();
         }
 
         String input;
-        /*while(!kb.next().equals("quit")){
-            if(kb.next().equals("show")){
-                Critter.displayWorld();
-            }
-        }*/
+
         do{
+            // prompts next command
+            System.out.print("critters> ");
             input = kb.next();
             if(input.equals("show")){
                 Critter.displayWorld();
 
+            }
+            else if(input.equals("seed")){
+                int seedNum = kb.nextInt();
+                Critter.setSeed(seedNum);
+            }
+            else if(input.equals("make")){
+                // NOT DONE: TO DO FOR STAGE 3
+                input = kb.next();
+
+            }
+            else if(input.equals("stats")){
+                // NOT DONE: TO DO FOR STAGE 3
+                input = kb.next();
+               // java.util.List<Critter> ListOfCritters = Critter.getInstances("Craig");
+            }
+            else if (input.equals("step")){
+                Critter.worldTimeStep();
+            }
+            else{
+                System.out.println("invalid command: " + input);
             }
 
         } while(!input.equals("quit"));
