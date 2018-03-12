@@ -6,13 +6,9 @@ package assignment4;
  * iv3235
  * Desiree Tang
  * dot227
- *
- *
  * Spring 2018
  */
 
-
-import com.sun.org.apache.xpath.internal.SourceTree;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -28,8 +24,7 @@ public abstract class Critter {
 	private static String myPackage;
 	private	static List<Critter> population = new java.util.ArrayList<Critter>();
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
-
-		// valid critter names
+	// this is the
 	private static List<String> worldSet = new java.util.ArrayList<>();
 
 	// Gets the package name.  This assumes that Critter and its subclasses are all in the same package.
@@ -53,23 +48,10 @@ public abstract class Critter {
 	private int energy = 0;
 	protected int getEnergy() { return energy; }
 	
-	private int x_coord;
-	private int y_coord;
-
-	// 8 directions
-	// 0 is right, 4 is left, etc
+	protected int x_coord;
+	protected int y_coord;
+	
 	protected final void walk(int direction) {
-		switch(direction){
-			case 0:
-			case 1:
-			case 2:
-			case 3:
-			case 4:
-			case 5:
-			case 6:
-			case 7:
-		}
-
 	}
 	
 	protected final void run(int direction) {
@@ -77,11 +59,14 @@ public abstract class Critter {
 	}
 	
 	protected final void reproduce(Critter offspring, int direction) {
-		if(offspring.energy < Params.min_reproduce_energy ){
-			return;
-		}
+	    // offspring is the critter BABY not the parent because precondition
+        // is a new critter is made before calling reproduce
+		//if(offspring.energy < Params.min_reproduce_energy ){
+		//	return;
+		//}
 
-		offspring.energy = (int) Math.ceil(0.5 * offspring.energy);
+
+		//offspring.energy = (int) Math.ceil(0.5 * offspring.energy);
 
 	}
 
@@ -108,8 +93,8 @@ public abstract class Critter {
 				obj.y_coord = getRandomInt(Params.world_height-1);
 				population.add(obj);
 				if(!worldSet.contains(critter_class_name)){
-					worldSet.add(critter_class_name);
-				}
+				    worldSet.add(critter_class_name);
+                }
 		}
 		catch (ClassNotFoundException e){
 			throw new InvalidCritterException(critter_class_name);
@@ -237,31 +222,47 @@ public abstract class Critter {
 	 * Prints the simulation model to the console
 	 */
 	public static void displayWorld() {
-		// Complete this method.
+	    // plus 2 because of the border
+        String[][] array = new String[Params.world_height+2][Params.world_width+2];
 
-		// if postion is occupied, print it's toString
+        array[0][0] = "+";
+        array[Params.world_height+ 1][0] = "+";
+        array[Params.world_height + 1][Params.world_width + 1] = "+";
+        array[0][Params.world_width + 1] = "+";
 
-		System.out.print("+");
-		for(int i = 0; i< Params.world_width; i++){
-			System.out.print("-");
-		}
-		System.out.print("+");
-		System.out.println("");
+        for(int i = 1; i < Params.world_width +1; i++){
+            array[0][i] = "-";
+            array[Params.world_height +1][i] = "-";
+        }
 
-		for(int j =0; j < Params.world_height; j++){
-			System.out.print("|");
-			for(int k =0; k< Params.world_width; k++){
-				System.out.print(" ");
-			}
-			System.out.print("|");
-			System.out.println("");
-		}
+        for(int i = 1; i < Params.world_height+1; i++){
+            array[i][0] = "|";
+            array[i][Params.world_width +1] = "|";
+        }
 
-		System.out.print("+");
-		for(int i = 0; i< Params.world_width; i++){
-			System.out.print("-");
-		}
-		System.out.print("+");
-		System.out.println("");
+        for(int r = 0; r < Params.world_height+2; r++){
+            for(int c = 0; c < Params.world_width+2; c++){
+                try{
+                    boolean occupied = false;
+                    for(Critter crit : population){
+                        if(crit.x_coord+1 == r && crit.y_coord+1 == c && array[r][c] == null){
+                            array[r][c] = crit.toString();
+                            occupied = true;
+                        }
+                    }
+                    if(!occupied && array[r][c] == null){
+                       array[r][c] = " ";
+                    }
+
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
+                System.out.print(array[r][c]);
+            }
+
+            System.out.println("");
+        }
+
 	}
 }
