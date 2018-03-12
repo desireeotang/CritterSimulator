@@ -50,16 +50,185 @@ public abstract class Critter {
 	
 	protected int x_coord;
 	protected int y_coord;
-	
+	/**this flag is to indicate whether or not the critter is allowed to move
+	* during the call to walk. ie. if critter has already moved, it can't move again
+	* and will be penalized by using energy even if it didn't change locations
+	* NEED TO RESTART EVERY WORLD STEP
+	 *
+	 * 0 - can move
+	 * 1 - coming from fight
+	 * 2 - already used movement and coming from fight
+	 * */
+	private int movementFlag = 0;
+	/** Function allows critter to move in one direction,
+	 *  need to account for wrapping around the world
+	 *
+	 *  @param direction the basics:
+	 *                      0- right, 4- left, 2- north, 6- south
+	 * */
 	protected final void walk(int direction) {
+		if(movementFlag > 1){
+			this.energy -= Params.walk_energy_cost;
+			return;
+		}
+		//if(movementFlag)
+		switch (direction){
+			case 0:
+				if(this.movementFlag == 1){
+					if (isOccupied(this.x_coord+1,this.y_coord)){
+						this.energy -= Params.walk_energy_cost;
+						movementFlag+=1;
+						return;
+					}
+				}
+				move(0);
+				energy -= Params.walk_energy_cost;
+				movementFlag += 2;
+			case 1:
+				if(this.movementFlag == 1){
+					if (isOccupied(this.x_coord+1,this.y_coord-1)){
+						this.energy -= Params.walk_energy_cost;
+						movementFlag+=1;
+						return;
+					}
+				}
+				move(2);
+				move(0);
+				energy -= Params.walk_energy_cost;
+				movementFlag += 2;
+			case 2:
+				if(this.movementFlag == 1){
+					if (isOccupied(this.x_coord,this.y_coord-1)){
+						this.energy -= Params.walk_energy_cost;
+						movementFlag+=1;
+						return;
+					}
+				}
+				move(2);
+				energy -= Params.walk_energy_cost;
+				movementFlag += 2;
+			case 3:
+				if(this.movementFlag == 1){
+					if (isOccupied(this.x_coord-1,this.y_coord-1)){
+						this.energy -= Params.walk_energy_cost;
+						movementFlag+=1;
+						return;
+					}
+				}
+				move(4);
+				move(2);
+				energy -= Params.walk_energy_cost;
+				movementFlag += 2;
+			case 4:
+				if(this.movementFlag == 1){
+					if (isOccupied(this.x_coord-1,this.y_coord)){
+						this.energy -= Params.walk_energy_cost;
+						movementFlag+=1;
+						return;
+					}
+				}
+				move(4);
+				energy -= Params.walk_energy_cost;
+				movementFlag += 2;
+			case 5:
+				if(this.movementFlag == 1){
+					if (isOccupied(this.x_coord-1,this.y_coord+1)){
+						this.energy -= Params.walk_energy_cost;
+						movementFlag+=1;
+						return;
+					}
+				}
+				move(4);
+				move(6);
+				energy -= Params.walk_energy_cost;
+				movementFlag += 2;
+			case 6:
+				if(this.movementFlag == 1){
+					if (isOccupied(this.x_coord,this.y_coord+1)){
+						this.energy -= Params.walk_energy_cost;
+						movementFlag+=1;
+						return;
+					}
+				}
+				move(6);
+				energy -= Params.walk_energy_cost;
+				movementFlag += 2;
+			case 7:
+				if(this.movementFlag == 1){
+					if (isOccupied(this.x_coord+1,this.y_coord+1)){
+						this.energy -= Params.walk_energy_cost;
+						movementFlag+=1;
+						return;
+					}
+				}
+				move(0);
+				move(6);
+				energy -= Params.walk_energy_cost;
+				movementFlag += 2;
+		}
 	}
-	
+	private final boolean isOccupied(int x, int y){
+		for(Critter c: population){
+			if(x == c.x_coord && y == c.y_coord){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	//0- right, 4- left, 2- north, 6- south
+	private final void move(int direction){
+		switch (direction){
+			case 0:
+				if(x_coord == Params.world_width-1){
+					x_coord = 0;
+				}
+				else{
+					x_coord++;
+				}
+			case 2:
+				if(y_coord == 0){
+					y_coord = Params.world_height-1;
+				}
+				else{
+					y_coord--;
+				}
+			case 4:
+				if(x_coord == 0){
+					x_coord = Params.world_width-1;
+				}
+				else{
+					x_coord--;
+				}
+
+			case 6:
+				if(y_coord == Params.world_height-1){
+					y_coord = 0;
+				}
+				else{
+					y_coord++;
+				}
+
+		}
+	}
 	protected final void run(int direction) {
+		if(movementFlag > 1){
+			energy -= Params.run_energy_cost;
+			return;
+		}
+		walk(direction);
+		energy += Params.walk_energy_cost;
+		// 2 so critter doesn't get penalized for wanting to run
+		// in the call to walk
+		movementFlag -= 2;
+		walk(direction);
+		energy += Params.walk_energy_cost;
+		energy -= Params.run_energy_cost;
 		
 	}
 	
 	protected final void reproduce(Critter offspring, int direction) {
-	    // offspring is the critter BABY not the parent because precondition
+	    // offspring is 2 or 1?the critter BABY not the parent because precondition
         // is a new critter is made before calling reproduce
 		//if(offspring.energy < Params.min_reproduce_energy ){
 		//	return;
@@ -123,6 +292,7 @@ public abstract class Critter {
 
 			}catch(Exception e){
 				e.printStackTrace();
+				throw new InvalidCritterException(critter_class_name);
 			}
 		}
 	
