@@ -28,8 +28,9 @@ public abstract class Critter {
 	private static String myPackage;
 	private	static List<Critter> population = new java.util.ArrayList<Critter>();
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
-	// this is the
-	private static List<Critter> worldSet = new java.util.ArrayList<>();
+
+		// valid critter names
+	private static List<String> worldSet = new java.util.ArrayList<>();
 
 	// Gets the package name.  This assumes that Critter and its subclasses are all in the same package.
 	static {
@@ -54,8 +55,21 @@ public abstract class Critter {
 	
 	private int x_coord;
 	private int y_coord;
-	
+
+	// 8 directions
+	// 0 is right, 4 is left, etc
 	protected final void walk(int direction) {
+		switch(direction){
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+		}
+
 	}
 	
 	protected final void run(int direction) {
@@ -66,7 +80,6 @@ public abstract class Critter {
 		if(offspring.energy < Params.min_reproduce_energy ){
 			return;
 		}
-
 
 		offspring.energy = (int) Math.ceil(0.5 * offspring.energy);
 
@@ -94,6 +107,9 @@ public abstract class Critter {
 				obj.x_coord = getRandomInt(Params.world_width-1);
 				obj.y_coord = getRandomInt(Params.world_height-1);
 				population.add(obj);
+				if(!worldSet.contains(critter_class_name)){
+					worldSet.add(critter_class_name);
+				}
 		}
 		catch (ClassNotFoundException e){
 			throw new InvalidCritterException(critter_class_name);

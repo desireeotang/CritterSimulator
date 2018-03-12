@@ -80,11 +80,7 @@ public class Main {
         }
 
         String input;
-        /*while(!kb.next().equals("quit")){
-            if(kb.next().equals("show")){
-                Critter.displayWorld();
-            }
-        }*/
+
         do{
             input = kb.next();
             if(input.equals("show")){
