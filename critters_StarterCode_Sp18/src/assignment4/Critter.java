@@ -71,7 +71,6 @@ public abstract class Critter {
 			this.energy -= Params.walk_energy_cost;
 			return;
 		}
-		//if(movementFlag)
 		switch (direction){
 			case 0:
 				if(this.movementFlag == 1){
@@ -84,6 +83,7 @@ public abstract class Critter {
 				move(0);
 				energy -= Params.walk_energy_cost;
 				movementFlag += 2;
+				break;
 			case 1:
 				if(this.movementFlag == 1){
 					if (isOccupied(this.x_coord+1,this.y_coord-1)){
@@ -96,6 +96,7 @@ public abstract class Critter {
 				move(0);
 				energy -= Params.walk_energy_cost;
 				movementFlag += 2;
+				break;
 			case 2:
 				if(this.movementFlag == 1){
 					if (isOccupied(this.x_coord,this.y_coord-1)){
@@ -107,6 +108,7 @@ public abstract class Critter {
 				move(2);
 				energy -= Params.walk_energy_cost;
 				movementFlag += 2;
+				break;
 			case 3:
 				if(this.movementFlag == 1){
 					if (isOccupied(this.x_coord-1,this.y_coord-1)){
@@ -119,6 +121,7 @@ public abstract class Critter {
 				move(2);
 				energy -= Params.walk_energy_cost;
 				movementFlag += 2;
+				break;
 			case 4:
 				if(this.movementFlag == 1){
 					if (isOccupied(this.x_coord-1,this.y_coord)){
@@ -130,6 +133,7 @@ public abstract class Critter {
 				move(4);
 				energy -= Params.walk_energy_cost;
 				movementFlag += 2;
+				break;
 			case 5:
 				if(this.movementFlag == 1){
 					if (isOccupied(this.x_coord-1,this.y_coord+1)){
@@ -142,6 +146,7 @@ public abstract class Critter {
 				move(6);
 				energy -= Params.walk_energy_cost;
 				movementFlag += 2;
+				break;
 			case 6:
 				if(this.movementFlag == 1){
 					if (isOccupied(this.x_coord,this.y_coord+1)){
@@ -153,6 +158,7 @@ public abstract class Critter {
 				move(6);
 				energy -= Params.walk_energy_cost;
 				movementFlag += 2;
+				break;
 			case 7:
 				if(this.movementFlag == 1){
 					if (isOccupied(this.x_coord+1,this.y_coord+1)){
@@ -165,6 +171,7 @@ public abstract class Critter {
 				move(6);
 				energy -= Params.walk_energy_cost;
 				movementFlag += 2;
+				break;
 		}
 	}
 	private final boolean isOccupied(int x, int y){
@@ -228,7 +235,7 @@ public abstract class Critter {
 	}
 	
 	protected final void reproduce(Critter offspring, int direction) {
-	    // offspring is 2 or 1?the critter BABY not the parent because precondition
+	    // offspring is the critter BABY not the parent because precondition
         // is a new critter is made before calling reproduce
 
 		if(this.energy < Params.min_reproduce_energy){
