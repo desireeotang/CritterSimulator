@@ -230,12 +230,104 @@ public abstract class Critter {
 	protected final void reproduce(Critter offspring, int direction) {
 	    // offspring is 2 or 1?the critter BABY not the parent because precondition
         // is a new critter is made before calling reproduce
-		//if(offspring.energy < Params.min_reproduce_energy ){
-		//	return;
-		//}
 
+		if(this.energy < Params.min_reproduce_energy){
+			return;
+		}
 
-		//offspring.energy = (int) Math.ceil(0.5 * offspring.energy);
+		offspring.energy = (int) Math.floor(0.5 * this.energy);
+		this.energy = (int) Math.ceil(0.5 * this.energy);
+
+		switch(direction){
+			case 0: // right
+				if(this.x_coord == Params.world_width-1){
+					offspring.x_coord = 0;
+				}
+				else{
+					offspring.x_coord = this.x_coord + 1;
+				}
+				break;
+			case 1: // up and right
+				if(this.x_coord == Params.world_width-1){
+					offspring.x_coord = 0;
+				}
+				else{
+					offspring.x_coord = this.x_coord + 1;
+				}
+				if(this.y_coord == 0){
+					offspring.y_coord = Params.world_height-1;
+				}
+				else{
+					offspring.y_coord = this.y_coord - 1;
+				}
+				break;
+			case 2: // up
+				if(this.y_coord == 0){
+					offspring.y_coord = Params.world_height-1;
+				}
+				else{
+					offspring.y_coord = this.y_coord - 1;
+				}
+				break;
+			case 3: // left and up
+				if(this.x_coord == 0){
+					offspring.x_coord = Params.world_width-1;
+				}
+				else{
+					offspring.x_coord = this.x_coord - 1;
+				}
+				if(this.y_coord == 0){
+					offspring.y_coord = Params.world_height-1;
+				}
+				else{
+					offspring.y_coord = this.y_coord - 1;
+				}
+				break;
+			case 4: // left
+				if(this.x_coord == 0){
+					offspring.x_coord = Params.world_width-1;
+				}
+				else{
+					offspring.x_coord = this.x_coord - 1;
+				}
+				break;
+			case 5: // left and down
+				if(this.x_coord == 0){
+					offspring.x_coord = Params.world_width-1;
+				}
+				else{
+					offspring.x_coord = this.x_coord - 1;
+				}
+				if(this.y_coord == Params.world_height-1){
+					offspring.y_coord = 0;
+				}
+				else{
+					offspring.y_coord = this.y_coord + 1;
+				}
+				break;
+			case 6: // down
+				if(this.y_coord == Params.world_height-1){
+					offspring.y_coord = 0;
+				}
+				else{
+					offspring.y_coord = this.y_coord + 1;
+				}
+				break;
+			case 7: // right and down
+				if(this.x_coord == Params.world_width-1){
+					offspring.x_coord = 0;
+				}
+				else{
+					offspring.x_coord = this.x_coord + 1;
+				}
+				if(this.y_coord == Params.world_height-1){
+					offspring.y_coord = 0;
+				}
+				else{
+					offspring.y_coord = this.y_coord + 1;
+				}
+				break;
+		}
 
 	}
 
