@@ -12,6 +12,7 @@ package assignment4;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 
 /* see the PDF for descriptions of the methods and fields in this class
@@ -482,9 +483,111 @@ public abstract class Critter {
 		babies.clear();
 		worldSet.clear();
 	}
+
+
+	/**
+	 * finds all the critters that occupy a certain position
+	 * @param x x coordinate of the position being checked
+	 * @param y y coordinate of the position being checked
+	 * @return a List of Critters that occupy that position
+	 */
+	public static List<Critter> critterEncounters(int x, int y){
+		List<Critter> encountersList = new java.util.ArrayList<>();
+		for(Critter crit : population){
+			if(crit.x_coord == x && crit.y_coord == y){
+				encountersList.add(crit);
+			}
+		}
+		return encountersList;
+	}
+
+	/**
+	 * function handles all encounters in each position of the world
+	 */
+	public static void doEncounters(){
+		for(int y = 0; y < Params.world_height; y++){
+			for(int x = 0; x < Params.world_width; x++){
+				List<Critter> encountersList = critterEncounters(x,y);
+				//if(encountersList.size() == 2){ //STAGE 2: ONLY 2 CRITTERS OCCUPY A POSITION
+				while(encountersList.size() > 1){ // encounter needed
+					int rand1 = 0;
+					int rand2 = 0;
+					if(encountersList.get(0).fight(encountersList.get(1).toString())
+							&& encountersList.get(1).fight(encountersList.get(0).toString())){
+						// both returned true so both critters want to fight
+						if(encountersList.get(0).x_coord == encountersList.get(1).x_coord
+								&& encountersList.get(0).y_coord == encountersList.get(1).y_coord
+								&& encountersList.get(0).energy > 0
+								&& encountersList.get(1).energy > 0){
+							// if both critters are still in the same position and are both still alive
+							rand1 = Critter.getRandomInt(encountersList.get(0).energy);
+							rand2 = Critter.getRandomInt(encountersList.get(1).energy);
+						}
+					}
+					else{
+						// both critters did not return true and even if one did not want to fight,
+						// but it was not able to walk or run then they occupy the same position
+						// and an encounter must still occur
+						if(!encountersList.get(0).fight(encountersList.get(1).toString())){
+							// Critter 1 did not want to fight
+							rand1 = 0;
+						}
+						if(!encountersList.get(1).fight(encountersList.get(0).toString())){
+							// Critter 1 did not want to fight
+							rand2 = 0;
+						}
+					}
+					if(rand1 >= rand2){
+						// Critter 1 wins
+						encountersList.get(0).energy += (int)Math.floor(encountersList.get(1).energy*0.5);
+						encountersList.get(1).energy = 0; // Critter 2 dies
+						encountersList.remove(1);
+					}
+					else{
+						// Critter 2 wins
+						encountersList.get(1).energy += (int)Math.floor(encountersList.get(0).energy*0.5);
+						encountersList.get(0).energy = 0; // Critter 1 dies
+						encountersList.remove(0);
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * subtract rest energy cost from all critters including Algae
+	 */
+	public static void updateRestEnergy(){
+		// rest energy subtracted from all critters regardless if moved or not
+		for(Critter crit : population){
+			crit.energy -= Params.rest_energy_cost;
+		}
+	}
+
+	/**
+	 * removes all dead critters from the population
+	 */
+	public static void removeDead(){
+		for(Critter crit : population){
+			if(crit.energy <= 0){
+				population.remove(crit);
+			}
+		}
+	}
 	
 	public static void worldTimeStep() {
-		// Complete this method.
+
+		// 1. increment timestep; timestep++;
+		// 2. doTimeSteps();
+		// 3. Do the fights. doEncounters();
+		doEncounters();
+		// 4. updateRestEnergy();
+		updateRestEnergy();
+		removeDead();
+		// 5. Generate Algae genAlgae();
+		// 6. Move babies to general population.
+		population.addAll(babies);
+		babies.clear();
 	}
 
 	/**
