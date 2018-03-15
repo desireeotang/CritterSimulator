@@ -97,7 +97,7 @@ public class Main {
                 Critter.displayWorld();
             }
             else if(command.equals("seed")){
-                if(parts[1] != null){
+                if(parts.length > 1){
                     int seedNum = Integer.parseInt(parts[1]);
                     Critter.setSeed(seedNum);
                 }
@@ -108,7 +108,7 @@ public class Main {
             }
             else if(command.equals("make")){
                 // NOT DONE: TO DO FOR STAGE 3
-                if(parts[1] != null){
+                if(parts.length > 1){
                     String newCritter = "assignment4." + parts[1];
                     if(parts[2] != null){
                         int makeNum = Integer.parseInt(parts[2]);
@@ -138,7 +138,7 @@ public class Main {
             }
             else if (command.equals("step")){
 
-               if(parts[1] != null){
+                if(parts.length > 1){
                    // count specified
                    int stepNum = Integer.parseInt(parts[1]);
 
