@@ -50,8 +50,8 @@ public abstract class Critter {
 	private int energy = 0;
 	protected int getEnergy() { return energy; }
 	
-	protected int x_coord;
-	protected int y_coord;
+	private int x_coord;
+	private int y_coord;
 	/**this flag is to indicate whether or not the critter is allowed to move
 	* during the call to walk. ie. if critter has already moved, it can't move again
 	* and will be penalized by using energy even if it didn't change locations
