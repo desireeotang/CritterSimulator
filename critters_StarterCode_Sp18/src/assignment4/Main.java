@@ -14,6 +14,7 @@ package assignment4;
 
 import java.util.Scanner;
 import java.io.*;
+import java.util.regex.Pattern;
 
 
 /*
@@ -88,27 +89,68 @@ public class Main {
         do{
             // prompts next command
             System.out.print("critters> ");
-            input = kb.next();
-            if(input.equals("show")){
+            input = kb.nextLine();
+            String [] parts = input.split(" ");
+            String command = parts[0];
+
+            if(command.equals("show")){
                 Critter.displayWorld();
+            }
+            else if(command.equals("seed")){
+                if(parts[1] != null){
+                    int seedNum = Integer.parseInt(parts[1]);
+                    Critter.setSeed(seedNum);
+                }
+                else{
+                    System.out.println("No seed number entered");
+                }
 
             }
-            else if(input.equals("seed")){
-                int seedNum = kb.nextInt();
-                Critter.setSeed(seedNum);
-            }
-            else if(input.equals("make")){
+            else if(command.equals("make")){
                 // NOT DONE: TO DO FOR STAGE 3
-                input = kb.next();
+                if(parts[1] != null){
+                    String newCritter = "assignment4." + parts[1];
+                    if(parts[2] != null){
+                        int makeNum = Integer.parseInt(parts[2]);
 
+                        for(int i =0; i < makeNum; i++){
+                            //Critter.makeCritter(newCritter);
+                        }
+                    }
+                    else{
+                       // Critter.makeCritter(newCritter);
+                    }
+                }
+                else{
+                    System.out.println("Name of subclass of Critter not specified for make");
+                }
             }
-            else if(input.equals("stats")){
+            else if(command.equals("stats")){
                 // NOT DONE: TO DO FOR STAGE 3
-                input = kb.next();
+                if(parts[1] != null){
+
+                }
+                else{
+                    System.out.println("Name of subclass of Critter not specified for stats");
+                }
+
                // java.util.List<Critter> ListOfCritters = Critter.getInstances("Craig");
             }
-            else if (input.equals("step")){
-                Critter.worldTimeStep();
+            else if (command.equals("step")){
+
+               if(parts[1] != null){
+                   // count specified
+                   int stepNum = Integer.parseInt(parts[1]);
+
+                   for(int i = 0; i < stepNum; i++){
+                       Critter.worldTimeStep();
+                   }
+                }
+                else{
+                   // do time step once if count number is not provided
+                   Critter.worldTimeStep();
+                }
+
             }
             else{
                 System.out.println("invalid command: " + input);
