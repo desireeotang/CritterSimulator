@@ -84,7 +84,7 @@ public abstract class Critter {
 				move(0);
 				energy -= Params.walk_energy_cost;
 				movementFlag += 2;
-				break;
+				return;
 			case 1:
 				if(this.movementFlag == 1){
 					if (isOccupied(this.x_coord+1,this.y_coord-1)){
@@ -97,7 +97,7 @@ public abstract class Critter {
 				move(0);
 				energy -= Params.walk_energy_cost;
 				movementFlag += 2;
-				break;
+				return;
 			case 2:
 				if(this.movementFlag == 1){
 					if (isOccupied(this.x_coord,this.y_coord-1)){
@@ -109,7 +109,7 @@ public abstract class Critter {
 				move(2);
 				energy -= Params.walk_energy_cost;
 				movementFlag += 2;
-				break;
+				return;
 			case 3:
 				if(this.movementFlag == 1){
 					if (isOccupied(this.x_coord-1,this.y_coord-1)){
@@ -122,7 +122,7 @@ public abstract class Critter {
 				move(2);
 				energy -= Params.walk_energy_cost;
 				movementFlag += 2;
-				break;
+				return;
 			case 4:
 				if(this.movementFlag == 1){
 					if (isOccupied(this.x_coord-1,this.y_coord)){
@@ -134,7 +134,7 @@ public abstract class Critter {
 				move(4);
 				energy -= Params.walk_energy_cost;
 				movementFlag += 2;
-				break;
+				return;
 			case 5:
 				if(this.movementFlag == 1){
 					if (isOccupied(this.x_coord-1,this.y_coord+1)){
@@ -147,7 +147,7 @@ public abstract class Critter {
 				move(6);
 				energy -= Params.walk_energy_cost;
 				movementFlag += 2;
-				break;
+				return;
 			case 6:
 				if(this.movementFlag == 1){
 					if (isOccupied(this.x_coord,this.y_coord+1)){
@@ -159,7 +159,7 @@ public abstract class Critter {
 				move(6);
 				energy -= Params.walk_energy_cost;
 				movementFlag += 2;
-				break;
+				return;
 			case 7:
 				if(this.movementFlag == 1){
 					if (isOccupied(this.x_coord+1,this.y_coord+1)){
@@ -172,7 +172,7 @@ public abstract class Critter {
 				move(6);
 				energy -= Params.walk_energy_cost;
 				movementFlag += 2;
-				break;
+				return;
 		}
 	}
 	private final boolean isOccupied(int x, int y){
@@ -194,6 +194,7 @@ public abstract class Critter {
 				else{
 					x_coord++;
 				}
+				return;
 			case 2:
 				if(y_coord == 0){
 					y_coord = Params.world_height-1;
@@ -201,6 +202,7 @@ public abstract class Critter {
 				else{
 					y_coord--;
 				}
+				return;
 			case 4:
 				if(x_coord == 0){
 					x_coord = Params.world_width-1;
@@ -208,7 +210,7 @@ public abstract class Critter {
 				else{
 					x_coord--;
 				}
-
+				return;
 			case 6:
 				if(y_coord == Params.world_height-1){
 					y_coord = 0;
@@ -216,7 +218,7 @@ public abstract class Critter {
 				else{
 					y_coord++;
 				}
-
+				return;
 		}
 	}
 	protected final void run(int direction) {
