@@ -108,6 +108,7 @@ public class Main {
                // java.util.List<Critter> ListOfCritters = Critter.getInstances("Craig");
             }
             else if (input.equals("step")){
+                //need: step [<count>] to loop through worldTimeStep for Stage 2
                 Critter.worldTimeStep();
             }
             else{

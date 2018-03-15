@@ -579,6 +579,7 @@ public abstract class Critter {
 
 		// 1. increment timestep; timestep++;
 		// 2. doTimeSteps();
+		doTimeSteps();
 		// 3. Do the fights. doEncounters();
 		doEncounters();
 		// 4. updateRestEnergy();
@@ -589,7 +590,15 @@ public abstract class Critter {
 		population.addAll(babies);
 		babies.clear();
 	}
-
+	/** Goes through every critter in the population and does its step
+	 * */
+	private static void doTimeSteps(){
+		for(Critter crit: population){
+			crit.doTimeStep();
+		}
+		// babies will do their timestep if they are already included in the population
+		// which is the turn after they are... pooped out
+	}
 	/**
 	 * Prints the simulation model to the console
 	 */
