@@ -13,6 +13,7 @@ package assignment4;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /* see the PDF for descriptions of the methods and fields in this class
@@ -72,7 +73,6 @@ public abstract class Critter {
 			this.energy -= Params.walk_energy_cost;
 			return;
 		}
-		//if(movementFlag)
 		switch (direction){
 			case 0:
 				if(this.movementFlag == 1){
@@ -85,6 +85,7 @@ public abstract class Critter {
 				move(0);
 				energy -= Params.walk_energy_cost;
 				movementFlag += 2;
+				return;
 			case 1:
 				if(this.movementFlag == 1){
 					if (isOccupied(this.x_coord+1,this.y_coord-1)){
@@ -97,6 +98,7 @@ public abstract class Critter {
 				move(0);
 				energy -= Params.walk_energy_cost;
 				movementFlag += 2;
+				return;
 			case 2:
 				if(this.movementFlag == 1){
 					if (isOccupied(this.x_coord,this.y_coord-1)){
@@ -108,6 +110,7 @@ public abstract class Critter {
 				move(2);
 				energy -= Params.walk_energy_cost;
 				movementFlag += 2;
+				return;
 			case 3:
 				if(this.movementFlag == 1){
 					if (isOccupied(this.x_coord-1,this.y_coord-1)){
@@ -120,6 +123,7 @@ public abstract class Critter {
 				move(2);
 				energy -= Params.walk_energy_cost;
 				movementFlag += 2;
+				return;
 			case 4:
 				if(this.movementFlag == 1){
 					if (isOccupied(this.x_coord-1,this.y_coord)){
@@ -131,6 +135,7 @@ public abstract class Critter {
 				move(4);
 				energy -= Params.walk_energy_cost;
 				movementFlag += 2;
+				return;
 			case 5:
 				if(this.movementFlag == 1){
 					if (isOccupied(this.x_coord-1,this.y_coord+1)){
@@ -143,6 +148,7 @@ public abstract class Critter {
 				move(6);
 				energy -= Params.walk_energy_cost;
 				movementFlag += 2;
+				return;
 			case 6:
 				if(this.movementFlag == 1){
 					if (isOccupied(this.x_coord,this.y_coord+1)){
@@ -154,6 +160,7 @@ public abstract class Critter {
 				move(6);
 				energy -= Params.walk_energy_cost;
 				movementFlag += 2;
+				return;
 			case 7:
 				if(this.movementFlag == 1){
 					if (isOccupied(this.x_coord+1,this.y_coord+1)){
@@ -166,6 +173,7 @@ public abstract class Critter {
 				move(6);
 				energy -= Params.walk_energy_cost;
 				movementFlag += 2;
+				return;
 		}
 	}
 	private final boolean isOccupied(int x, int y){
@@ -187,6 +195,7 @@ public abstract class Critter {
 				else{
 					x_coord++;
 				}
+				return;
 			case 2:
 				if(y_coord == 0){
 					y_coord = Params.world_height-1;
@@ -194,6 +203,7 @@ public abstract class Critter {
 				else{
 					y_coord--;
 				}
+				return;
 			case 4:
 				if(x_coord == 0){
 					x_coord = Params.world_width-1;
@@ -201,7 +211,7 @@ public abstract class Critter {
 				else{
 					x_coord--;
 				}
-
+				return;
 			case 6:
 				if(y_coord == Params.world_height-1){
 					y_coord = 0;
@@ -209,7 +219,7 @@ public abstract class Critter {
 				else{
 					y_coord++;
 				}
-
+				return;
 		}
 	}
 	protected final void run(int direction) {
@@ -229,7 +239,7 @@ public abstract class Critter {
 	}
 	
 	protected final void reproduce(Critter offspring, int direction) {
-	    // offspring is 2 or 1?the critter BABY not the parent because precondition
+	    // offspring is the critter BABY not the parent because precondition
         // is a new critter is made before calling reproduce
 
 		if(this.energy < Params.min_reproduce_energy){
@@ -561,9 +571,11 @@ public abstract class Critter {
 	 * removes all dead critters from the population
 	 */
 	public static void removeDead(){
-		for(Critter crit : population){
+		Iterator<Critter> it = population.iterator();
+		while(it.hasNext()){
+			Critter crit = it.next();
 			if(crit.energy <= 0){
-				population.remove(crit);
+				it.remove();
 			}
 		}
 	}
@@ -572,6 +584,7 @@ public abstract class Critter {
 
 		// 1. increment timestep; timestep++;
 		// 2. doTimeSteps();
+		doTimeSteps();
 		// 3. Do the fights. doEncounters();
 		doEncounters();
 		// 4. updateRestEnergy();
@@ -582,7 +595,15 @@ public abstract class Critter {
 		population.addAll(babies);
 		babies.clear();
 	}
-
+	/** Goes through every critter in the population and does its step
+	 * */
+	private static void doTimeSteps(){
+		for(Critter crit: population){
+			crit.doTimeStep();
+		}
+		// babies will do their timestep if they are already included in the population
+		// which is the turn after they are... pooped out
+	}
 	/**
 	 * Prints the simulation model to the console
 	 */
