@@ -13,6 +13,7 @@ package assignment4;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /* see the PDF for descriptions of the methods and fields in this class
@@ -570,9 +571,11 @@ public abstract class Critter {
 	 * removes all dead critters from the population
 	 */
 	public static void removeDead(){
-		for(Critter crit : population){
+		Iterator<Critter> it = population.iterator();
+		while(it.hasNext()){
+			Critter crit = it.next();
 			if(crit.energy <= 0){
-				population.remove(crit);
+				it.remove();
 			}
 		}
 	}
