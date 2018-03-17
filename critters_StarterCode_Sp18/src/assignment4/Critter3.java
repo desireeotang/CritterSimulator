@@ -1,12 +1,14 @@
 package assignment4;
 
-/* custom critter subclass by Desiree
- * as denoted by the "d" symbol in the toString function.
+/*  custom critter subclass by Desiree
+ *  as denoted by the "d" symbol in the toString function.
  *  This Critter is a strong independent female that
- *  walks for every time step and will walk in any direction
+ *  walks during every time step and will walk in any direction
  *  because she's not afraid of anything.
  *  She will also never back down from a fight
  *  and will always fight for her territory.
+ *  This Critter also REFUSES to reproduce although
+ *  she has the capability to #SorryNotSorry
  *
  */
 
