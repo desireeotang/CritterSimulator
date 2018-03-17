@@ -1,14 +1,34 @@
 package assignment4;
-/* first custom critter subclass by Isabelle
-*  as denoted by the "I" symbol in the toString function. */
+/*
+* */
 /**
- * Need the specifications of this class. energy, type, fight, etc
+ * first custom critter subclass by Isabelle
+ * as denoted by the "I" symbol in the toString function.
+ *
+ * This critter only fights D's and runs diagonally towards NE
  * */
-public class Critter1 {
+public class Critter1 extends Critter{
     @Override
     public String toString() {
         return "I";
     }
-    public boolean fight(String not_used) { return true; }
+    @Override
+    public boolean fight(String opponent) {
+        if(opponent.equals("D")){
+            return true;
+        }
+        else{
+            int randomNum = getRandomInt(7);
+            walk(randomNum);
+            return false;
+        }
+    }
+
+    @Override
+    public void doTimeStep(){
+        // always runs diagonally
+        run(1);
+
+    }
 
 }
