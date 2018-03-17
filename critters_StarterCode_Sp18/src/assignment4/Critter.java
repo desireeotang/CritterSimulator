@@ -579,6 +579,17 @@ public abstract class Critter {
 			}
 		}
 	}
+
+	private static void genAlgae(){
+		for(int i = 0; i < Params.refresh_algae_count; i++){
+			try{
+				makeCritter("Algae");
+			}
+			catch(Exception e){
+				// do nothing
+			}
+		}
+	}
 	
 	public static void worldTimeStep() {
 
@@ -591,6 +602,7 @@ public abstract class Critter {
 		updateRestEnergy();
 		removeDead();
 		// 5. Generate Algae genAlgae();
+		genAlgae();
 		// 6. Move babies to general population.
 		population.addAll(babies);
 		babies.clear();
