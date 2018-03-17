@@ -1,7 +1,7 @@
 package assignment4;
 
 /* custom critter subclass by Desiree
- * as denoted by the "D" symbol in the toString function.
+ * as denoted by the "d" symbol in the toString function.
  *  This Critter is a strong independent female that
  *  walks for every time step and will walk in any direction
  *  because she's not afraid of anything.
@@ -23,7 +23,7 @@ public class Critter3 extends Critter{
     }
     @Override
     public String toString() {
-        return "D";
+        return "d";
     }
 
     public static void runStats(java.util.List<Critter> critters3) {
