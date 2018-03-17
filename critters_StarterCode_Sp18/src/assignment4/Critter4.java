@@ -30,4 +30,8 @@ public class Critter4 extends Critter {
     public String toString() {
         return "D";
     }
+
+    public static void runStats(java.util.List<Critter> Critters4) {
+        System.out.print("" + Critters4.size() + " total Critters4");
+    }
 }
