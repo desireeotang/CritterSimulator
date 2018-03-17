@@ -26,4 +26,8 @@ public class Critter2 extends Critter{
         int rand = getRandomInt(7);
         walk(rand);
     }
+
+    public static void runStats(java.util.List<Critter> Critters2) {
+        System.out.print("" + Critters2.size() + " total Critters2");
+    }
 }

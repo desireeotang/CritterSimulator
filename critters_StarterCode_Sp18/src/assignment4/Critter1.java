@@ -31,4 +31,7 @@ public class Critter1 extends Critter{
 
     }
 
+    public static void runStats(java.util.List<Critter> Critters1) {
+        System.out.print("" + Critters1.size() + " total Critters1");
+    }
 }
