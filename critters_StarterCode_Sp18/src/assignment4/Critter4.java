@@ -10,10 +10,18 @@ package assignment4;
  */
 
 public class Critter4 extends Critter {
+    
+    private int numTimesRan;
+
     @Override
     public void doTimeStep() {
         int runNum = Critter.getRandomInt(7);
         run(runNum);
+        numTimesRan++;
+    }
+
+    public Critter4(){
+        numTimesRan = 0;
     }
 
     @Override
