@@ -1,6 +1,15 @@
 package assignment4;
+/* CRITTERS Critter4.java
+ * EE422C Project 4 submission by
+ * Replace <...> with your actual data.
+ * Isabelle Villamiel
+ * iv3235
+ * Desiree Tang
+ * dot227
+ * Spring 2018
+ */
 
-/* custom critter subclass by Desiree
+/** custom critter subclass by Desiree
  * as denoted by the "D" symbol in the toString function.
  * This Critter is a kind critter to critters from
  * its own Creator (Desiree) and will walk away from a fight.
