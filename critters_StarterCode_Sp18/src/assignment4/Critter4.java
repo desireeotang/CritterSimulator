@@ -10,8 +10,8 @@ package assignment4;
  */
 
 public class Critter4 extends Critter {
-    
-    private int numTimesRan;
+
+    private static int numTimesRan;
 
     @Override
     public void doTimeStep() {
@@ -41,5 +41,7 @@ public class Critter4 extends Critter {
 
     public static void runStats(java.util.List<Critter> Critters4) {
         System.out.print("" + Critters4.size() + " total Critters4");
+        System.out.println("");
+        System.out.println("Number of times Ran: " + numTimesRan);
     }
 }
