@@ -73,7 +73,7 @@ public class Main {
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
 
-        try {
+       /* try {
             // FOR LOOPS FOR STAGES 1 AND 2 ONLY
             // STAGE 3: WORLD STARTS EMPTY
             for(int i =0; i < 25; i++) {
@@ -87,7 +87,7 @@ public class Main {
         } catch (InvalidCritterException e) {
             e.printStackTrace();
         }
-
+*/
 
         String input;
 

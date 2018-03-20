@@ -588,8 +588,6 @@ public abstract class Critter {
      * generates new Algae critters for every world time step
      */
 	private static void genAlgae(){
-		// for debugging: show old number vs new num of algae
-		System.out.println(NumberofInstances("Algae"));
 		for(int i = 0; i < Params.refresh_algae_count; i++){
 			try{
 				// this automatically puts the new instance into the population through makeCritter
@@ -600,7 +598,6 @@ public abstract class Critter {
 				// do nothing
 			}
 		}
-		System.out.println(NumberofInstances("Algae"));
 	}
 	private static int NumberofInstances(String type){
 		int result = 0;
@@ -623,6 +620,8 @@ public abstract class Critter {
      */
 
 	public static void worldTimeStep() {
+		System.out.println("# of old Craig "+NumberofInstances("Craig"));
+		System.out.println("# of old population: "+population.size());
 
 		// 1. increment timestep; timestep++;
 		// 2. doTimeSteps();
@@ -633,10 +632,15 @@ public abstract class Critter {
 		updateRestEnergy();
 		removeDead();
 		// 5. Generate Algae genAlgae();
+		System.out.println("# of old Algae: "+NumberofInstances("Algae"));
 		genAlgae();
+		System.out.println("# of new Algae pop: "+NumberofInstances("Algae"));
 		// 6. Move babies to general population.
 		population.addAll(babies);
 		babies.clear();
+
+		System.out.println("# of new total Craig "+NumberofInstances("Craig"));
+		System.out.println("Number of total population: "+population.size());
 	}
 	/** Goes through every critter in the population and does its step
 	 * */
@@ -681,6 +685,10 @@ public abstract class Critter {
                             array[r][c] = crit.toString();
                             occupied = true;
                         }
+                        // new
+                        else if(crit.x_coord+1 == r && crit.y_coord+1 == c && array[r][c] != null && occupied==true){
+                        	array[r][c] = crit.toString();
+						}
                     }
                     if(!occupied && array[r][c] == null){
                        array[r][c] = " ";
