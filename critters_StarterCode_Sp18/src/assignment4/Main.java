@@ -195,7 +195,7 @@ public class Main {
                 }
 
             }
-            else{
+            else if(!input.equals("quit")){
                 System.out.println("invalid command: " + input);
             }
 
