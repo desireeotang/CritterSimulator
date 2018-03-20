@@ -12,6 +12,11 @@ public class Critter1 extends Critter{
     public String toString() {
         return "I";
     }
+    private static int RunDirection;
+    public Critter1() {
+        RunDirection = 1;
+    }
+
     @Override
     public boolean fight(String opponent) {
         if(opponent.equals("D")){
@@ -27,7 +32,7 @@ public class Critter1 extends Critter{
     @Override
     public void doTimeStep(){
         // always runs diagonally
-        run(1);
+        run(RunDirection);
 
     }
 
