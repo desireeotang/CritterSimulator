@@ -1,4 +1,13 @@
 package assignment4;
+/* CRITTERS InvalidCritterException.java
+ * EE422C Project 4 submission by
+ * Replace <...> with your actual data.
+ * Isabelle Villamiel
+ * iv3235
+ * Desiree Tang
+ * dot227
+ * Spring 2018
+ */
 
 
 public class InvalidCritterException extends Exception {

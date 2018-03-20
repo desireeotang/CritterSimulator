@@ -1,6 +1,14 @@
 package assignment4;
-/*
-* */
+/* CRITTERS Critter1.java
+ * EE422C Project 4 submission by
+ * Replace <...> with your actual data.
+ * Isabelle Villamiel
+ * iv3235
+ * Desiree Tang
+ * dot227
+ * Spring 2018
+ */
+
 /**
  * first custom critter subclass by Isabelle
  * as denoted by the "I" symbol in the toString function.
