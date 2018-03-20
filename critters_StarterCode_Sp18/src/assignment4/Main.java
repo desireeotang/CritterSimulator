@@ -12,6 +12,8 @@ package assignment4;
  */
 
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Scanner;
 import java.io.*;
 import java.util.regex.Pattern;
@@ -75,14 +77,17 @@ public class Main {
             // FOR LOOPS FOR STAGES 1 AND 2 ONLY
             // STAGE 3: WORLD STARTS EMPTY
             for(int i =0; i < 25; i++) {
-                Critter.makeCritter("assignment4.Craig");
+                Critter.makeCritter("Craig");
+
             }
             for(int j =0; j <100; j++){
-                Critter.makeCritter("assignment4.Algae");
+                Critter.makeCritter("Algae");
             }
+
         } catch (InvalidCritterException e) {
             e.printStackTrace();
         }
+
 
         String input;
 
@@ -107,18 +112,31 @@ public class Main {
 
             }
             else if(command.equals("make")){
-                // NOT DONE: TO DO FOR STAGE 3
                 if(parts.length > 1){
-                    String newCritter = "assignment4." + parts[1];
-                    if(parts[2] != null){
+                    if(parts.length > 3){
+                        // too many parts in command
+                        System.out.println("error processing: " + input);
+                    }
+                    else if(parts.length > 2){
                         int makeNum = Integer.parseInt(parts[2]);
-
-                        for(int i =0; i < makeNum; i++){
-                            //Critter.makeCritter(newCritter);
+                        try {
+                            for (int i = 0; i < makeNum; i++) {
+                                Critter.makeCritter(parts[1]);
+                            }
+                        }
+                        catch(InvalidCritterException e){
+                            e.printStackTrace();
+                            System.out.println("Error in making Critter:" + parts[1]);
                         }
                     }
                     else{
-                       // Critter.makeCritter(newCritter);
+                        try {
+                            Critter.makeCritter(parts[1]);
+                        }
+                        catch(InvalidCritterException e){
+                            e.printStackTrace();
+                            System.out.println("Error in making one Critter: " + parts[1]);
+                        }
                     }
                 }
                 else{
@@ -127,14 +145,39 @@ public class Main {
             }
             else if(command.equals("stats")){
                 // NOT DONE: TO DO FOR STAGE 3
-                if(parts[1] != null){
+                if(parts.length > 1){
+                    String className = parts[1];
+                    try{
+                        java.util.List<Critter> statsList = Critter.getInstances(parts[1]);
+                       // Craig.runStats(statsList);
+                        Class c = Class.forName("assignment4." + parts[1]);
+                        Method method = c.getMethod("runStats", java.util.List.class);
+                        method.invoke(statsList.getClass(), statsList);
+                        //Critter obj = (Critter) c.newInstance();
+                       // obj.runStats(statsList);
+
+                    }
+                    catch(NoSuchMethodException n){
+                        System.out.println("No Such Method Exception");
+                    }
+                    catch(InvocationTargetException d){
+                        System.out.println("Invocation Target Exception");
+                    }
+                    catch(ClassNotFoundException c){
+                        System.out.println("Class Not found Exception");
+                    }
+                    catch(IllegalAccessException i){
+                        System.out.println("Illegal Access Exception");
+                    }
+                    catch(InvalidCritterException e){
+                        System.out.println("Error in retrieving Instances of Critter: " + className);
+                    }
 
                 }
                 else{
                     System.out.println("Name of subclass of Critter not specified for stats");
                 }
 
-               // java.util.List<Critter> ListOfCritters = Critter.getInstances("Craig");
             }
             else if (command.equals("step")){
 
