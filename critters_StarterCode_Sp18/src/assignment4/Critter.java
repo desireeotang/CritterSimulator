@@ -580,8 +580,11 @@ public abstract class Critter {
 	}
 
 	private static void genAlgae(){
+		// for debugging: show old number vs new num of algae
+		System.out.println(NumberofInstances("Algae"));
 		for(int i = 0; i < Params.refresh_algae_count; i++){
 			try{
+				// this automatically puts the new instance into the population through makeCritter
 				makeCritter("Algae");
 
 			}
@@ -589,8 +592,22 @@ public abstract class Critter {
 				// do nothing
 			}
 		}
+		System.out.println(NumberofInstances("Algae"));
 	}
-	
+	private static int NumberofInstances(String type){
+		int result = 0;
+		for(Critter c : population){
+			try{
+				if(Class.forName("assignment4." + type).isInstance(c)){
+					result++;
+				}
+			}
+			catch(Exception e){
+				// do nothing rn
+			}
+		}
+		return result;
+	}
 	public static void worldTimeStep() {
 
 		// 1. increment timestep; timestep++;
@@ -611,7 +628,10 @@ public abstract class Critter {
 	 * */
 	private static void doTimeSteps(){
 		for(Critter crit: population){
+			//System.out.println(crit+"old coords: "+crit.x_coord+", "+crit.y_coord);
 			crit.doTimeStep();
+			//System.out.println(crit+"new coords: "+crit.x_coord+", "+crit.y_coord);
+
 		}
 		// babies will do their timestep if they are already included in the population
 		// which is the turn after they are... pooped out
