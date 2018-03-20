@@ -10,6 +10,11 @@ public class Critter2 extends Critter{
     @Override
     public String toString(){ return "J";  }
 
+    private static int walkDirection;
+    public Critter2(){
+        int rand = getRandomInt(7);
+        walkDirection = rand;
+    }
     @Override
     public boolean fight(String opponent) {
         int rand = getRandomInt(7);
@@ -23,8 +28,7 @@ public class Critter2 extends Critter{
             return;
         }
         // want to walk towards algae but idk how lol
-        int rand = getRandomInt(7);
-        walk(rand);
+        walk(walkDirection);
     }
 
     public static void runStats(java.util.List<Critter> Critters2) {
