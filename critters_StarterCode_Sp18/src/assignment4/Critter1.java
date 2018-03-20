@@ -10,7 +10,7 @@ package assignment4;
 public class Critter1 extends Critter{
     @Override
     public String toString() {
-        return "I";
+        return "1";
     }
     private static int RunDirection;
     public Critter1() {
@@ -19,7 +19,7 @@ public class Critter1 extends Critter{
 
     @Override
     public boolean fight(String opponent) {
-        if(opponent.equals("D")){
+        if(opponent.equals("3")){
             return true;
         }
         else{

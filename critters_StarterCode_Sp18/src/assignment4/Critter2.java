@@ -8,7 +8,7 @@ package assignment4;
  * */
 public class Critter2 extends Critter{
     @Override
-    public String toString(){ return "J";  }
+    public String toString(){ return "2";  }
 
     private static int walkDirection;
     public Critter2(){
