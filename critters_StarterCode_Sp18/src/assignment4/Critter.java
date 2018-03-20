@@ -566,18 +566,28 @@ public abstract class Critter {
 						}
 
 					}
-					if(rand1 >= rand2){
-						// Critter 1 wins
-						encountersList.get(0).energy += (int)Math.floor(encountersList.get(1).energy*0.5);
-						encountersList.get(1).energy = 0; // Critter 2 dies
-						encountersList.remove(1);
-					}
-					else{
-						// Critter 2 wins
-						encountersList.get(1).energy += (int)Math.floor(encountersList.get(0).energy*0.5);
-						encountersList.get(0).energy = 0; // Critter 1 dies
-						encountersList.remove(0);
-					}
+                    saveX1 = encountersList.get(0).x_coord;
+                    saveY1 = encountersList.get(0).y_coord;
+                    saveX2 = encountersList.get(1).x_coord;
+                    saveY2 = encountersList.get(1).y_coord;
+
+                    if(saveX1 == saveX2 && saveY1 == saveY2){
+                        if(rand1 >= rand2){
+                            // Critter 1 wins
+                            encountersList.get(0).energy += (int)Math.floor(encountersList.get(1).energy*0.5);
+                            encountersList.get(1).energy = 0; // Critter 2 dies
+                            encountersList.remove(1);
+                        }
+                        else{
+                            // Critter 2 wins
+                            encountersList.get(1).energy += (int)Math.floor(encountersList.get(0).energy*0.5);
+                            encountersList.get(0).energy = 0; // Critter 1 dies
+                            encountersList.remove(0);
+                        }
+                    }
+                    else{
+                        break;
+                    }
 				}
 			}
 		}

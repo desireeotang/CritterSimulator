@@ -216,6 +216,9 @@ public class Main {
                     break;
                 }
             }
+            else{
+                System.out.println("invalid command: "+input);
+            }
 
 
         } while(!input.equals("quit"));
