@@ -711,6 +711,10 @@ public abstract class Critter {
                         else if(crit.x_coord+1 == r && crit.y_coord+1 == c && array[r][c] != null && occupied==true){
                         	array[r][c] = crit.toString();
 						}
+						else if(crit.x_coord+1 == Params.world_width-1 &&
+								crit.y_coord+1 == Params.world_height-1 && array[r][c] == null){
+							array[r][c] = crit.toString();
+						}
                     }
                     if(!occupied && array[r][c] == null){
                        array[r][c] = " ";
