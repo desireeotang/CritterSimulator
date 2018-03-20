@@ -1,2 +1,1 @@
-show
-quit
+showquit
