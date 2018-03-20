@@ -93,7 +93,7 @@ public class Main {
 
         do{
             // prompts next command
-            System.out.print("critters> ");
+            System.out.print("critters>");
             input = kb.nextLine();
             String [] parts = input.split(" ");
             String command = parts[0];
@@ -116,13 +116,13 @@ public class Main {
                         Critter.setSeed(seedNum);
                     }
                     catch(NumberFormatException e){
-                        System.out.println("invalid command: "+parts[1]);
+                        System.out.println("error processing: "+input);
 
                     }
 
                 }
                 else{
-                    System.out.println("No seed number entered");
+                    System.out.println("error processing: " +input);
                 }
 
             }
@@ -161,47 +161,31 @@ public class Main {
                     }
                 }
                 else{
-                    System.out.println("Name of subclass of Critter not specified for make");
+                    System.out.println("error processing: " +input);
                 }
             }
             else if(command.equals("stats")){
-                if(parts.length > 1){
-                    String className = parts[1];
+                if(parts.length == 2){
                     try{
                         java.util.List<Critter> statsList = Critter.getInstances(parts[1]);
-                       // Craig.runStats(statsList);
                         Class c = Class.forName("assignment4." + parts[1]);
                         Method method = c.getMethod("runStats", java.util.List.class);
                         method.invoke(statsList.getClass(), statsList);
-                        //Critter obj = (Critter) c.newInstance();
-                       // obj.runStats(statsList);
 
                     }
-                    catch(NoSuchMethodException n){
-                        System.out.println("No Such Method Exception");
-                    }
-                    catch(InvocationTargetException d){
-                        System.out.println("Invocation Target Exception");
-                    }
-                    catch(ClassNotFoundException c){
-                        System.out.println("Class Not found Exception");
-                    }
-                    catch(IllegalAccessException i){
-                        System.out.println("Illegal Access Exception");
-                    }
-                    catch(InvalidCritterException e){
-                        System.out.println("Error in retrieving Instances of Critter: " + className);
+                    catch(Exception e){
+                        System.out.println("error processing: " + input);
                     }
 
                 }
                 else{
-                    System.out.println("Name of subclass of Critter not specified for stats");
+                    System.out.println("error processing: " +input);
                 }
 
             }
             else if (command.equals("step")){
 
-                if(parts.length > 1){
+                if(parts.length  == 2){
                    // count specified
                     try{
                         int stepNum = Integer.parseInt(parts[1]);
@@ -215,15 +199,24 @@ public class Main {
 
 
                 }
-                else{
+                else if (parts.length == 1){
                    // do time step once if count number is not provided
                    Critter.worldTimeStep();
                 }
+                else{
+                    System.out.println("error processing: " +input);
+                }
 
             }
-            else if(!input.equals("quit")){
-                System.out.println("invalid command: " + input);
+            else if(command.equals("quit")){
+                if(parts.length > 1){
+                    System.out.println("error processing: "+input);
+                }
+               else{
+                    break;
+                }
             }
+
 
         } while(!input.equals("quit"));
 
