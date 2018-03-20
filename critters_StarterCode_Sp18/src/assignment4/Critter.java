@@ -519,8 +519,13 @@ public abstract class Critter {
 				while(encountersList.size() > 1){ // encounter needed
 					int rand1 = 0;
 					int rand2 = 0;
-					if(encountersList.get(0).fight(encountersList.get(1).toString())
-							&& encountersList.get(1).fight(encountersList.get(0).toString())){
+					int saveX1 = encountersList.get(0).x_coord;
+					int saveY1 = encountersList.get(0).y_coord;
+					int saveX2 = encountersList.get(1).x_coord;
+					int saveY2 = encountersList.get(1).y_coord;
+					boolean fightFlag1 = encountersList.get(0).fight(encountersList.get(1).toString());
+					boolean fightFlag2 = encountersList.get(1).fight(encountersList.get(0).toString());
+					if(fightFlag1 && fightFlag2){
 						// both returned true so both critters want to fight
 						if(encountersList.get(0).x_coord == encountersList.get(1).x_coord
 								&& encountersList.get(0).y_coord == encountersList.get(1).y_coord
@@ -535,14 +540,31 @@ public abstract class Critter {
 						// both critters did not return true and even if one did not want to fight,
 						// but it was not able to walk or run then they occupy the same position
 						// and an encounter must still occur
-						if(!encountersList.get(0).fight(encountersList.get(1).toString())){
+						if(!fightFlag1){
+							List<Critter> compareList1 =
+									critterEncounters(encountersList.get(0).x_coord,encountersList.get(0).y_coord);
+
+							if(compareList1.size() > 1){
+								// Critter 1 is trying to move to an already occupied space so it
+								// should move back to original position
+								encountersList.get(0).x_coord = saveX1;
+								encountersList.get(0).y_coord = saveY1;
+							}
 							// Critter 1 did not want to fight
 							rand1 = 0;
 						}
-						if(!encountersList.get(1).fight(encountersList.get(0).toString())){
+						if(!fightFlag2){
 							// Critter 1 did not want to fight
+							List<Critter> compareList2 =
+									critterEncounters(encountersList.get(1).x_coord, encountersList.get(1).y_coord);
+							if(compareList2.size() > 1){
+								// this also checks for moving into same position that Critter 1 attempts to move to
+								encountersList.get(1).x_coord = saveX2;
+								encountersList.get(1).y_coord = saveY2;
+							}
 							rand2 = 0;
 						}
+
 					}
 					if(rand1 >= rand2){
 						// Critter 1 wins
