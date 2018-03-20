@@ -118,16 +118,22 @@ public class Main {
                         System.out.println("error processing: " + input);
                     }
                     else if(parts.length > 2){
-                        int makeNum = Integer.parseInt(parts[2]);
-                        try {
-                            for (int i = 0; i < makeNum; i++) {
-                                Critter.makeCritter(parts[1]);
+                        try{
+                            int makeNum = Integer.parseInt(parts[2]);
+                            try {
+                                for (int i = 0; i < makeNum; i++) {
+                                    Critter.makeCritter(parts[1]);
+                                }
+                            }
+                            catch(InvalidCritterException e){
+                                e.printStackTrace();
+                                System.out.println("invalid command: " + input);
                             }
                         }
-                        catch(InvalidCritterException e){
-                            e.printStackTrace();
-                            System.out.println("Error in making Critter:" + parts[1]);
+                        catch(NumberFormatException e){
+                            System.out.println("invalid command: "+parts[2]);
                         }
+
                     }
                     else{
                         try {
@@ -135,7 +141,7 @@ public class Main {
                         }
                         catch(InvalidCritterException e){
                             e.printStackTrace();
-                            System.out.println("Error in making one Critter: " + parts[1]);
+                            System.out.println("error processing: " + input);
                         }
                     }
                 }
@@ -183,11 +189,17 @@ public class Main {
 
                 if(parts.length > 1){
                    // count specified
-                   int stepNum = Integer.parseInt(parts[1]);
+                    try{
+                        int stepNum = Integer.parseInt(parts[1]);
+                        for(int i = 0; i < stepNum; i++){
+                            Critter.worldTimeStep();
+                        }
+                    }
+                    catch(NumberFormatException e){
+                        System.out.println("invalid command "+parts[1]);
+                    }
 
-                   for(int i = 0; i < stepNum; i++){
-                       Critter.worldTimeStep();
-                   }
+
                 }
                 else{
                    // do time step once if count number is not provided
