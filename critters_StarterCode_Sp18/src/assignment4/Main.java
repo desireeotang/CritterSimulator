@@ -99,12 +99,27 @@ public class Main {
             String command = parts[0];
 
             if(command.equals("show")){
-                Critter.displayWorld();
+                if(parts.length > 1){
+                    System.out.println("error processing: "+input);
+                }
+                else {
+                    Critter.displayWorld();
+                }
             }
             else if(command.equals("seed")){
-                if(parts.length > 1){
-                    int seedNum = Integer.parseInt(parts[1]);
-                    Critter.setSeed(seedNum);
+                if(parts.length > 2){
+                    System.out.println("error processing: " +input);
+                }
+                else if(parts.length == 2){
+                    try{
+                        int seedNum = Integer.parseInt(parts[1]);
+                        Critter.setSeed(seedNum);
+                    }
+                    catch(NumberFormatException e){
+                        System.out.println("invalid command: "+parts[1]);
+
+                    }
+
                 }
                 else{
                     System.out.println("No seed number entered");
@@ -127,11 +142,11 @@ public class Main {
                             }
                             catch(InvalidCritterException e){
                                 e.printStackTrace();
-                                System.out.println("invalid command: " + input);
+                                System.out.println("error processing: " + input);
                             }
                         }
                         catch(NumberFormatException e){
-                            System.out.println("invalid command: "+parts[2]);
+                            System.out.println("error processing: " + input);
                         }
 
                     }
@@ -196,7 +211,7 @@ public class Main {
                         }
                     }
                     catch(NumberFormatException e){
-                        System.out.println("invalid command "+parts[1]);
+                        System.out.println("error processing: "+input);
                     }
 
 
