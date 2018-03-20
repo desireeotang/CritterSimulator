@@ -189,7 +189,7 @@ public abstract class Critter {
 	private final void move(int direction){
 		switch (direction){
 			case 0:
-				if(x_coord == Params.world_width-1){
+				if(x_coord >= Params.world_width-1){
 					x_coord = 0;
 				}
 				else{
@@ -197,23 +197,23 @@ public abstract class Critter {
 				}
 				return;
 			case 2:
-				if(y_coord == 0){
-					y_coord = Params.world_height-1;
+				if(y_coord <= 0){
+					y_coord += Params.world_height-1;
 				}
 				else{
 					y_coord--;
 				}
 				return;
 			case 4:
-				if(x_coord == 0){
-					x_coord = Params.world_width-1;
+				if(x_coord <= 0){
+					x_coord += Params.world_width-1;
 				}
 				else{
 					x_coord--;
 				}
 				return;
 			case 6:
-				if(y_coord == Params.world_height-1){
+				if(y_coord >= Params.world_height-1){
 					y_coord = 0;
 				}
 				else{
@@ -256,7 +256,7 @@ public abstract class Critter {
 
 		switch(direction){
 			case 0: // right
-				if(this.x_coord == Params.world_width-1){
+				if(this.x_coord == Params.world_width){
 					offspring.x_coord = 0;
 				}
 				else{
@@ -264,14 +264,14 @@ public abstract class Critter {
 				}
 				break;
 			case 1: // up and right
-				if(this.x_coord == Params.world_width-1){
+				if(this.x_coord == Params.world_width){
 					offspring.x_coord = 0;
 				}
 				else{
 					offspring.x_coord = this.x_coord + 1;
 				}
 				if(this.y_coord == 0){
-					offspring.y_coord = Params.world_height-1;
+					offspring.y_coord = Params.world_height;
 				}
 				else{
 					offspring.y_coord = this.y_coord - 1;
@@ -279,7 +279,7 @@ public abstract class Critter {
 				break;
 			case 2: // up
 				if(this.y_coord == 0){
-					offspring.y_coord = Params.world_height-1;
+					offspring.y_coord = Params.world_height;
 				}
 				else{
 					offspring.y_coord = this.y_coord - 1;
@@ -287,13 +287,13 @@ public abstract class Critter {
 				break;
 			case 3: // left and up
 				if(this.x_coord == 0){
-					offspring.x_coord = Params.world_width-1;
+					offspring.x_coord = Params.world_width;
 				}
 				else{
 					offspring.x_coord = this.x_coord - 1;
 				}
 				if(this.y_coord == 0){
-					offspring.y_coord = Params.world_height-1;
+					offspring.y_coord = Params.world_height;
 				}
 				else{
 					offspring.y_coord = this.y_coord - 1;
@@ -301,7 +301,7 @@ public abstract class Critter {
 				break;
 			case 4: // left
 				if(this.x_coord == 0){
-					offspring.x_coord = Params.world_width-1;
+					offspring.x_coord = Params.world_width;
 				}
 				else{
 					offspring.x_coord = this.x_coord - 1;
@@ -309,12 +309,12 @@ public abstract class Critter {
 				break;
 			case 5: // left and down
 				if(this.x_coord == 0){
-					offspring.x_coord = Params.world_width-1;
+					offspring.x_coord = Params.world_width;
 				}
 				else{
 					offspring.x_coord = this.x_coord - 1;
 				}
-				if(this.y_coord == Params.world_height-1){
+				if(this.y_coord == Params.world_height){
 					offspring.y_coord = 0;
 				}
 				else{
@@ -322,7 +322,7 @@ public abstract class Critter {
 				}
 				break;
 			case 6: // down
-				if(this.y_coord == Params.world_height-1){
+				if(this.y_coord == Params.world_height){
 					offspring.y_coord = 0;
 				}
 				else{
@@ -330,13 +330,13 @@ public abstract class Critter {
 				}
 				break;
 			case 7: // right and down
-				if(this.x_coord == Params.world_width-1){
+				if(this.x_coord == Params.world_width){
 					offspring.x_coord = 0;
 				}
 				else{
 					offspring.x_coord = this.x_coord + 1;
 				}
-				if(this.y_coord == Params.world_height-1){
+				if(this.y_coord == Params.world_height){
 					offspring.y_coord = 0;
 				}
 				else{
@@ -366,8 +366,8 @@ public abstract class Critter {
 				Critter obj = (Critter) myCrit.newInstance();
 
 				obj.energy = Params.start_energy;
-				obj.x_coord = getRandomInt(Params.world_width-1);
-				obj.y_coord = getRandomInt(Params.world_height-1);
+				obj.x_coord = getRandomInt(Params.world_width);
+				obj.y_coord = getRandomInt(Params.world_height);
 				population.add(obj);
 				if(!worldSet.contains(critter_class_name)){
 				    worldSet.add(critter_class_name);
@@ -691,53 +691,32 @@ public abstract class Critter {
 	 */
 	public static void displayWorld() {
 	    // plus 2 because of the border
-        String[][] array = new String[Params.world_height+2][Params.world_width+2];
-
-        array[0][0] = "+";
-        array[Params.world_height+ 1][0] = "+";
-        array[Params.world_height + 1][Params.world_width + 1] = "+";
-        array[0][Params.world_width + 1] = "+";
-
-        for(int i = 1; i < Params.world_width +1; i++){
-            array[0][i] = "-";
-            array[Params.world_height +1][i] = "-";
-        }
-
-        for(int i = 1; i < Params.world_height+1; i++){
-            array[i][0] = "|";
-            array[i][Params.world_width +1] = "|";
-        }
-
-        for(int r = 0; r < Params.world_height+2; r++){
-            for(int c = 0; c < Params.world_width+2; c++){
-                try{
-                    boolean occupied = false;
-                    for(Critter crit : population){
-                        if(crit.x_coord+1 == r && crit.y_coord+1 == c && array[r][c] == null){
-                            array[r][c] = crit.toString();
-                            occupied = true;
-                        }
-                        // new
-                        else if(crit.x_coord+1 == r && crit.y_coord+1 == c && array[r][c] != null && occupied==true){
-                        	array[r][c] = crit.toString();
-						}
-						else if(crit.x_coord+1 == Params.world_width-1 &&
-								crit.y_coord+1 == Params.world_height-1 && array[r][c] == null){
-							array[r][c] = crit.toString();
-						}
-                    }
-                    if(!occupied && array[r][c] == null){
-                       array[r][c] = " ";
-                    }
-                }
-                catch(Exception e){
-                    e.printStackTrace();
-                }
-                System.out.print(array[r][c]);
+        printBorder();
+        String[][] array = new String[Params.world_height][Params.world_width];
+        for(int row = 0; row < Params.world_height; row++){
+            for(int col =0; col < Params.world_width; col++){
+                array[row][col] = " ";
             }
-
-            System.out.println("");
         }
+        for(Critter c: population){
+            array[c.y_coord][c.x_coord] = c.toString();
+        }
+
+        for(int row = 0; row < Params.world_height; row++){
+            System.out.print("|");
+            for(int col =0; col < Params.world_width; col++){
+                System.out.print(array[row][col]);
+            }
+            System.out.println("|");
+        }
+        printBorder();
 
 	}
+	private static void printBorder(){
+	    System.out.print("+");
+	    for(int i = 0; i < Params.world_width; i++){
+	        System.out.print("-");
+        }
+        System.out.println("+");
+    }
 }

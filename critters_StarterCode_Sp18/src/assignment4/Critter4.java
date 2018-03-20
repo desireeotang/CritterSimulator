@@ -26,7 +26,7 @@ public class Critter4 extends Critter {
 
     @Override
     public boolean fight(String opponent) {
-        if(opponent.toString().equals("D")){
+        if(opponent.toString().equals("4")){
             walk(2);
             return false;
         }
@@ -36,7 +36,7 @@ public class Critter4 extends Critter {
     }
     @Override
     public String toString() {
-        return "D";
+        return "4";
     }
 
     public static void runStats(java.util.List<Critter> Critters4) {

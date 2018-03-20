@@ -32,7 +32,7 @@ public class Critter3 extends Critter{
     }
     @Override
     public String toString() {
-        return "d";
+        return "3";
     }
 
     public static void runStats(java.util.List<Critter> Critters3) {
