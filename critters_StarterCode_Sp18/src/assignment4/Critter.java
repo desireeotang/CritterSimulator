@@ -642,8 +642,8 @@ public abstract class Critter {
      */
 
 	public static void worldTimeStep() {
-		System.out.println("# of old Craig "+NumberofInstances("Craig"));
-		System.out.println("# of old population: "+population.size());
+		//System.out.println("# of old Craig "+NumberofInstances("Craig"));
+		//System.out.println("# of old population: "+population.size());
 
 		// 1. increment timestep; timestep++;
 		// 2. doTimeSteps();
@@ -654,15 +654,15 @@ public abstract class Critter {
 		updateRestEnergy();
 		removeDead();
 		// 5. Generate Algae genAlgae();
-		System.out.println("# of old Algae: "+NumberofInstances("Algae"));
+		//System.out.println("# of old Algae: "+NumberofInstances("Algae"));
 		genAlgae();
-		System.out.println("# of new Algae pop: "+NumberofInstances("Algae"));
+		//System.out.println("# of new Algae pop: "+NumberofInstances("Algae"));
 		// 6. Move babies to general population.
 		population.addAll(babies);
 		babies.clear();
 
-		System.out.println("# of new total Craig "+NumberofInstances("Craig"));
-		System.out.println("Number of total population: "+population.size());
+		//System.out.println("# of new total Craig "+NumberofInstances("Craig"));
+		//System.out.println("Number of total population: "+population.size());
 	}
 	/** Goes through every critter in the population and does its step
 	 * */

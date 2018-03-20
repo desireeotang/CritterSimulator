@@ -165,7 +165,6 @@ public class Main {
                 }
             }
             else if(command.equals("stats")){
-                // NOT DONE: TO DO FOR STAGE 3
                 if(parts.length > 1){
                     String className = parts[1];
                     try{
