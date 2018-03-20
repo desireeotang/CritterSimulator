@@ -237,7 +237,12 @@ public abstract class Critter {
 		energy -= Params.run_energy_cost;
 		
 	}
-	
+
+    /**
+     * Implements the details of the baby critter
+     * @param offspring the baby critter
+     * @param direction where the baby critter is placed in respect to the parent critter
+     */
 	protected final void reproduce(Critter offspring, int direction) {
 	    // offspring is the critter BABY not the parent because precondition
         // is a new critter is made before calling reproduce
@@ -579,6 +584,9 @@ public abstract class Critter {
 		}
 	}
 
+    /**
+     * generates new Algae critters for every world time step
+     */
 	private static void genAlgae(){
 		for(int i = 0; i < Params.refresh_algae_count; i++){
 			try{
@@ -590,7 +598,12 @@ public abstract class Critter {
 			}
 		}
 	}
-	
+
+    /**
+     * implements all the time steps of every critter in the world, resolves all encounters, updates the
+     * rest energy, removes all dead critters, generates algae for every world time step, and add all
+     * baby critters to the population
+     */
 	public static void worldTimeStep() {
 
 		// 1. increment timestep; timestep++;
@@ -651,7 +664,6 @@ public abstract class Critter {
                     if(!occupied && array[r][c] == null){
                        array[r][c] = " ";
                     }
-
                 }
                 catch(Exception e){
                     e.printStackTrace();
