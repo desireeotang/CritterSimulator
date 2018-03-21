@@ -1,0 +1,25 @@
+#Team Plan
+
+The Critter Simulator project was developed by Desiree Tang and Isabelle Villamiel. 
+The Git repository URL is: https://github.com/desireeotang/CritterSimulator 
+
+The Critter Simulator was developed in stages. Each developer created a branch
+of their own to commit and push individual changes and then created a pull request
+to merge final changes to master. Each developer focused on separate tasks 
+as listed below:
+
+  1. Desiree Tang: 
+      - Encounters between Critters
+      - Reproducing Critters
+      - View Component
+      - Controller Component
+      - Critter3.java
+      - Critter4.java
+    
+  2. Isabelle Villamiel:
+      - Making Critters
+      - World Time Step 
+      - Walking and Running Critters
+      - Exceptions and Error handling
+      - Critter1.java
+      - Critter2.java
