@@ -256,7 +256,7 @@ public abstract class Critter {
 
 		switch(direction){
 			case 0: // right
-				if(this.x_coord == Params.world_width){
+				if(this.x_coord == Params.world_width-1){
 					offspring.x_coord = 0;
 				}
 				else{
@@ -264,14 +264,14 @@ public abstract class Critter {
 				}
 				break;
 			case 1: // up and right
-				if(this.x_coord == Params.world_width){
+				if(this.x_coord == Params.world_width-1){
 					offspring.x_coord = 0;
 				}
 				else{
 					offspring.x_coord = this.x_coord + 1;
 				}
 				if(this.y_coord == 0){
-					offspring.y_coord = Params.world_height;
+					offspring.y_coord = Params.world_height-1;
 				}
 				else{
 					offspring.y_coord = this.y_coord - 1;
@@ -279,7 +279,7 @@ public abstract class Critter {
 				break;
 			case 2: // up
 				if(this.y_coord == 0){
-					offspring.y_coord = Params.world_height;
+					offspring.y_coord = Params.world_height-1;
 				}
 				else{
 					offspring.y_coord = this.y_coord - 1;
@@ -287,13 +287,13 @@ public abstract class Critter {
 				break;
 			case 3: // left and up
 				if(this.x_coord == 0){
-					offspring.x_coord = Params.world_width;
+					offspring.x_coord = Params.world_width-1;
 				}
 				else{
 					offspring.x_coord = this.x_coord - 1;
 				}
 				if(this.y_coord == 0){
-					offspring.y_coord = Params.world_height;
+					offspring.y_coord = Params.world_height-1;
 				}
 				else{
 					offspring.y_coord = this.y_coord - 1;
@@ -301,7 +301,7 @@ public abstract class Critter {
 				break;
 			case 4: // left
 				if(this.x_coord == 0){
-					offspring.x_coord = Params.world_width;
+					offspring.x_coord = Params.world_width-1;
 				}
 				else{
 					offspring.x_coord = this.x_coord - 1;
@@ -309,12 +309,12 @@ public abstract class Critter {
 				break;
 			case 5: // left and down
 				if(this.x_coord == 0){
-					offspring.x_coord = Params.world_width;
+					offspring.x_coord = Params.world_width-1;
 				}
 				else{
 					offspring.x_coord = this.x_coord - 1;
 				}
-				if(this.y_coord == Params.world_height){
+				if(this.y_coord == Params.world_height-1){
 					offspring.y_coord = 0;
 				}
 				else{
@@ -322,7 +322,7 @@ public abstract class Critter {
 				}
 				break;
 			case 6: // down
-				if(this.y_coord == Params.world_height){
+				if(this.y_coord == Params.world_height-1){
 					offspring.y_coord = 0;
 				}
 				else{
@@ -330,13 +330,13 @@ public abstract class Critter {
 				}
 				break;
 			case 7: // right and down
-				if(this.x_coord == Params.world_width){
+				if(this.x_coord == Params.world_width-1){
 					offspring.x_coord = 0;
 				}
 				else{
 					offspring.x_coord = this.x_coord + 1;
 				}
-				if(this.y_coord == Params.world_height){
+				if(this.y_coord == Params.world_height-1){
 					offspring.y_coord = 0;
 				}
 				else{
